@@ -1,15 +1,20 @@
 import React from 'react';
-import { GridList, GridListTile, GridListTileBar, makeStyles } from '@material-ui/core';
-import { Box, Card, Grid, Toolbar, Typography } from '@material-ui/core';
+import Header from '../components/header';
+import { GridList, GridListTile, GridListTileBar, makeStyles, Paper } from '@material-ui/core';
+import { Card, Grid, Toolbar, Typography } from '@material-ui/core';
+import Box from '../components/box';
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        paddingLeft: 200,
-        overflowX: 'hidden',
+        paddingTop: 70,
+        paddingLeft: 20,
+        paddingRight: 275,
+        backgroundColor: theme.palette.primary.dark,
     },
     box: {
         borderRadius: '5px',
+        backgroundColor: theme.palette.primary.light,
     },
     title: {
         fontSize: 14,
@@ -25,49 +30,69 @@ const useStyles = makeStyles((theme) => ({
         textShadow: "1px 1px 6px grey",
         fontStyle: 'oblique',
     },
-    homeContent: {
-        padding: theme.spacing(1),
-        overflowX: 'hidden',
-    },
 }));
 
 export default function Home() {
     const classes = useStyles();
 
     return (
-        <main className={classes.root} >
-            <Toolbar />
+        <main className={classes.root}>
+            <Header />
             <Grid container direction="col" spacing={1} className={classes.homeContent}>
                 <Grid item xs={12}>
                     <Typography variant="h2" className={classes.pageHead}>
-                        hi
+                        hi :)
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid container direction="row" spacing={1} className={classes.homeContent}>
-                <Grid item xs={12} sm={8}>
-
+            <div className={classes.root}>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                    <Paper className={classes.paper}>xs=12</Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <Paper className={classes.paper}>xs=12 sm=6</Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <Paper className={classes.paper}>xs=12 sm=6</Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={4}>
-                    <Box className={classes.box}>
-
-                    </Box>
+                <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                    <Paper className={classes.paper}>xs=12</Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <Paper className={classes.paper}>xs=12 sm=6</Paper>
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                    <Paper className={classes.paper}>xs=12 sm=6</Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={4}>
-                    <Box className={classes.box}>
-
-                    </Box>
-                </Grid>
-                <Grid item xs={12} sm={8}>
-
-                </Grid>
-                <Grid item xs={12} sm={4}>
-
-                </Grid>
-                <Grid item xs={12} sm={8}>
-
-                </Grid>
-            </Grid>
+            </div>
         </main>
     );
 }
