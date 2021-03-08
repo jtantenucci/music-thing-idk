@@ -8,8 +8,10 @@ import { ThemeProvider } from '@material-ui/core';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme ={theme}>
-      <App />
+      <ThemeProvider theme ={theme}>
+      <DataLayer initialState reducer>
+        <App />
+      </DataLayer>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
