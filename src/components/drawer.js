@@ -1,13 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Header from './header';
 import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Icon from '@mdi/react';
+import { mdiSpotify, mdiGithub, mdiTwitter, mdiMusic } from '@mdi/js';
 
 const drawerWidth = 200;
 
@@ -48,13 +47,20 @@ export default function PermanentDrawerRight() {
         <div className={classes.toolbar} />
         <List className={classes.listItem}>
           {['brain', 'brain', 'brain', 'brain'].map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem button key={index}>
                 
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
         <Divider />
+        <List alignItems="center" className={classes.listItem}>
+          {[{mdiSpotify}, {mdiTwitter}, {mdiGithub}, {mdiMusic}].map((text, index) => (
+            <ListItem Icon key={index}>
+                <Icon path={text} size={1} />
+            </ListItem>
+          ))}
+        </List>
       </Drawer>
     </div>
   );

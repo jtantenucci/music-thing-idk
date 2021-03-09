@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { loginUrl } from '../spotify';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Avatar, Button, Grid,
+import { AppBar, Button, Grid,
    Toolbar, Typography } from '@material-ui/core';
+import Icon from '@mdi/react';
+import { mdiSpotify } from '@mdi/js';
  
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,56 +39,38 @@ const useStyles = makeStyles((theme) => ({
         '&:hover': {
           color: theme.palette.secondary.main,
           borderColor: theme.palette.secondary.main,
-          textDecoration: 'none',  
         },
         '&:active': {
           color: theme.palette.secondary.main,
           textDecoration: 'none',  
         },
     },
-    avatar: {
-        width: theme.spacing(3),
-        margin: theme.spacing(1),
-        height: theme.spacing(3),
-        color: '#ffffff',
-        backgroundColor: theme.palette.primary.dark,
+    icon: {
+        marginLeft: 5,
+        marginRight: -5,
+        color: theme.palette.secondary.main,
+        '&:hover': {
+          color: theme.palette.secondary.main,
+          borderColor: theme.palette.secondary.main,
+        },
+        '&:active': {
+          color: theme.palette.secondary.main,
+          textDecoration: 'none',  
+        },
     }
   }));
 
 export default function DefaultHeader() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
-  
-    const handleToggle = () => {
-      setOpen((prevOpen) => !prevOpen);
-    };
-  
-    const handleClose = (event) => {
-      if (anchorRef.current && anchorRef.current.contains(event.target)) {
-        return;
-      }
-  
-      setOpen(false);
-    };
-  
-    const prevOpen = React.useRef(open);
-    React.useEffect(() => {
-      if (prevOpen.current === true && open === false) {
-        anchorRef.current.focus();
-      }
-  
-      prevOpen.current = open;
-    }, [open]);
-
         return (
             <div className={classes.root}>
                 <AppBar position="fixed" className={classes.appBar}>
                     <Toolbar>
                     <Grid container direction="row" justify="space-between" alignItems ="center">
-                    <Button className={classes.button} href={loginUrl} variant="outlined">
-                      log in with spotify 
-                    </Button>
+                      <Button className={classes.button} href={loginUrl} variant="outlined">
+                        log in with spotify 
+                        <Icon path={mdiSpotify} size={1} className={classes.icon} />
+                      </Button>
                         <Typography variant="h6" className={classes.title} noWrap>
                             placeholderlol
                         </Typography>

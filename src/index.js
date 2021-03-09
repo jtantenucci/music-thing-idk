@@ -6,7 +6,9 @@ import theme from './themes/testingtheme';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from '@material-ui/core';
 
+
 ReactDOM.render(
+
   <React.StrictMode>
       <ThemeProvider theme ={theme}>
       {/* <DataLayer initialState reducer> */}

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { loginUrl } from '../spotify';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Avatar, Button, ClickAwayListener, Grid,
   Grow, MenuItem, MenuList, Paper, 

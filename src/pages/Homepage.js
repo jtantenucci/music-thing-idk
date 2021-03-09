@@ -1,9 +1,6 @@
 import React from 'react';
-import Header from '../components/header';
 import MusicCard from '../components/musicCard';
-import { GridList, GridListTile, GridListTileBar, makeStyles, Paper } from '@material-ui/core';
-import { Card, Grid, Toolbar, Typography } from '@material-ui/core';
-import Box from '../components/box';
+import { makeStyles, Grid, Typography  } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
