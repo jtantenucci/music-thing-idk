@@ -1,7 +1,8 @@
 import './App.css';
 import Drawer from './components/drawer';
 import Homepage from './pages/Homepage';
-import Login from './components/Login';
+import Header from './components/header';
+import DefaultHeader from './components/defaultHeader';
 import { useEffect, useState } from 'react';
 import { getTokenFromUrl } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
@@ -32,16 +33,16 @@ export default function App() {
 
   return (
     <div className="App">
-      {token ?
-        <div>
+      <div>
+        {token ?
+          <Header />
+        :
+          <DefaultHeader />
+        }
           <Drawer />
           <Homepage />
         </div>
-        :
-        <div><Login /></div>
-      }
     </div>
-  );
-}
-
+    );
+  }
 

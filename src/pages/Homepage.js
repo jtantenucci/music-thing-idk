@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../components/header';
+import MusicCard from '../components/musicCard';
 import { GridList, GridListTile, GridListTileBar, makeStyles, Paper } from '@material-ui/core';
 import { Card, Grid, Toolbar, Typography } from '@material-ui/core';
 import Box from '../components/box';
@@ -7,14 +8,14 @@ import Box from '../components/box';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        paddingTop: 70,
+        paddingTop: 80,
         paddingLeft: 20,
         paddingRight: 275,
         backgroundColor: theme.palette.primary.dark,
     },
     box: {
         borderRadius: '5px',
-        backgroundColor: theme.palette.primary.light,
+        backgroundColor: theme.palette.primary.dark,
     },
     title: {
         fontSize: 14,
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
     pageHead: {
         color: theme.palette.secondary.light,
-        textShadow: "1px 1px 6px grey",
+        textShadow: "0.5px 0.5px 5px #AACDA2",
         fontStyle: 'oblique',
     },
 }));
@@ -36,63 +37,49 @@ export default function Home() {
     const classes = useStyles();
 
     return (
-        <main className={classes.root}>
-            <Header />
-            <Grid container direction="col" spacing={1} className={classes.homeContent}>
-                <Grid item xs={12}>
-                    <Typography variant="h2" className={classes.pageHead}>
-                        hi :)
-                    </Typography>
-                </Grid>
-            </Grid>
             <div className={classes.root}>
                 <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                    <Paper className={classes.paper}>xs=12</Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>xs=12 sm=6</Paper>
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>xs=12 sm=6</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
+                <Grid item xs={12}>
+                    <Typography variant="h2" className={classes.pageHead}>
+                       songs you might like: 
+                    </Typography>
                 </Grid>
-                <Grid container spacing={3}>
+                    <Grid item xs={12} sm={4}>
+                    <MusicCard />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                    <MusicCard />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                    <MusicCard />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                    <MusicCard />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                    <MusicCard />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                    <MusicCard />
+                    </Grid>
                     <Grid item xs={12}>
-                    <Paper className={classes.paper}>xs=12</Paper>
+                    <Typography variant="h2" className={classes.pageHead}>
+                        now playing with friends:
+                    </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>xs=12 sm=6</Paper>
+                    <MusicCard />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                    <Paper className={classes.paper}>xs=12 sm=6</Paper>
+                    <MusicCard />
                     </Grid>
-                    <Grid item xs={6} sm={3}>
-                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
-                    <Grid item xs={6} sm={3}>
-                    <Paper className={classes.paper}>xs=6 sm=3</Paper>
-                    </Grid>
+                    <Typography variant="h2" className={classes.pageHead}>
+                        now playing with friends:
+                    </Typography>
+                    <Typography variant="h2" className={classes.pageHead}>
+                        songs for your weather:
+                    </Typography>
                 </Grid>
             </div>
-        </main>
     );
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { loginUrl } from '../spotify';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Avatar, Button, ClickAwayListener, Grid,
   Grow, MenuItem, MenuList, Paper, 
@@ -13,17 +14,16 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     title: {
-        fontWeight: "bold",
-        color: "#ffffff",
-        borderRadius: '5px',
-        textShadow: "0.5px 0.5px 6px darkgrey",
-        '&:hover': {
-          color: theme.palette.secondary.main,
-          textDecoration: 'none',  
-        }
-       },
+      color: theme.palette.secondary.main,
+      borderRadius: '5px',
+      textShadow: "0.5px 0.5px 6px white",
+      '&:hover': {
+        color: theme.palette.primary.light,
+        textDecoration: 'none',  
+      }
+     },
     appBar: {
-      backgroundColor: theme.palette.primary.light,
+      backgroundColor: theme.palette.primary.dark,
       zIndex: theme.zIndex.drawer + 1,
       display: 'flex',
       alignItems: '',
@@ -101,9 +101,9 @@ export default function Header() {
                                     <MenuList
                                         id="menu-list-grow"
                                         autoFocusItem={open}
-                                >
-                                        <MenuItem onClick={handleClose}>my account</MenuItem>
-                                        <MenuItem onClick={handleClose}>saved looks</MenuItem>
+                                    >
+                                        <MenuItem onClick={handleClose}>my profile</MenuItem>
+                                        <MenuItem onClick={handleClose}>saved playlists</MenuItem>
                                         <MenuItem onClick={handleClose}>logout</MenuItem>
                                     </MenuList>
                                     </ClickAwayListener>

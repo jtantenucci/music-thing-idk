@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flexShrink: 0,
   },
   drawerPaper: {
+    backgroundColor: theme.palette.primary.dark,
     width: drawerWidth,
   },
   // necessary for content to be below app bar
@@ -45,8 +46,7 @@ export default function PermanentDrawerRight() {
         anchor="right"
       >
         <div className={classes.toolbar} />
-        <Divider />
-        <List>
+        <List className={classes.listItem}>
           {['brain', 'brain', 'brain', 'brain'].map((text, index) => (
             <ListItem button key={text}>
                 
@@ -55,14 +55,6 @@ export default function PermanentDrawerRight() {
           ))}
         </List>
         <Divider />
-        <List>
-          {['brain', 'brain', 'brain', 'brain'].map((text, index) => (
-            <ListItem button key={text}>
-
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
     </div>
   );
