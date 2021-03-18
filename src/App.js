@@ -49,16 +49,8 @@ export default function App() {
         </Switch>
       </div>
       </BrowserRouter>
-      {/* <div>
-        {token ?
-          <Header />
-        :
-          <DefaultHeader />
-        }
-          <Drawer />
-          <Homepage />
-        </div> */}
     </div>
     );
   }
 
+s
