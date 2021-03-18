@@ -6,6 +6,8 @@ import DefaultHeader from './components/defaultHeader';
 import { useEffect, useState } from 'react';
 import { getTokenFromUrl } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Profile from './pages/Profile';
 
 const spotify = new SpotifyWebApi(); //wrapper for the spotify api
 
@@ -33,16 +35,22 @@ export default function App() {
 
   return (
     <div className="App">
+      <BrowserRouter>
       <div>
-        {token ?
+      {token ?
           <Header />
         :
           <DefaultHeader />
         }
-          <Drawer />
-          <Homepage />
-        </div>
+        <Drawer />
+        <Switch>
+          <Route exact path="/" component={Homepage} />
+          <Route exact path ="/profile" component={Profile} />
+        </Switch>
+      </div>
+      </BrowserRouter>
     </div>
     );
   }
 
+s

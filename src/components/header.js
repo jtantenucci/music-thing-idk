@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Avatar, Button, ClickAwayListener, Grid,
   Grow, MenuItem, MenuList, Paper, 
   Popper, Toolbar, Typography } from '@material-ui/core';
+import {Link} from 'react-router-dom';
  
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -101,7 +102,7 @@ export default function Header() {
                                         id="menu-list-grow"
                                         autoFocusItem={open}
                                     >
-                                        <MenuItem onClick={handleClose}>my profile</MenuItem>
+                                        <MenuItem onClick={handleClose}><Link to="/profile">my profile</Link></MenuItem>
                                         <MenuItem onClick={handleClose}>saved playlists</MenuItem>
                                         <MenuItem onClick={handleClose}>logout</MenuItem>
                                     </MenuList>
