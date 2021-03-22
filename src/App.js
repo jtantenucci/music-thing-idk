@@ -14,6 +14,7 @@ const spotify = new SpotifyWebApi(); //wrapper for the spotify api
 export default function App() {
 
   const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null);
 
   //run code based on given condition
   useEffect(() => {
@@ -27,7 +28,8 @@ export default function App() {
       spotify.setAccessToken(_token); //giving it back to the spotify api
 
       spotify.getMe().then(user => {
-        console.log(user);
+        setUser(user);
+        console.log(user.display_name);
       })
     }
 
@@ -38,7 +40,7 @@ export default function App() {
       <BrowserRouter>
       <div>
       {token ?
-          <Header />
+          <Header user={user}/>
         :
           <DefaultHeader />
         }
@@ -52,5 +54,3 @@ export default function App() {
     </div>
     );
   }
-
-s

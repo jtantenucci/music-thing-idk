@@ -1,10 +1,13 @@
-import React from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Avatar, Button, ClickAwayListener, Grid,
   Grow, MenuItem, MenuList, Paper, 
   Popper, Toolbar, Typography } from '@material-ui/core';
 import {Link} from 'react-router-dom';
- 
+import SpotifyWebApi from 'spotify-web-api-js';
+
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -44,12 +47,16 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.primary.dark,
     }
   }));
+  
+const spotify = new SpotifyWebApi();
+
 
 export default function Header() {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const anchorRef = React.useRef(null);
-  
+    const [open, setOpen] = useState(false);
+    const anchorRef = useRef(null);
+    const [user, setUser] = useState(null);
+    const [name, setName] = useState(null);
     const handleToggle = () => {
       setOpen((prevOpen) => !prevOpen);
     };
@@ -61,9 +68,18 @@ export default function Header() {
   
       setOpen(false);
     };
-  
-    const prevOpen = React.useRef(open);
-    React.useEffect(() => {
+
+    useEffect(() => {
+        spotify.getMe().then(user => {
+          setUser(user);
+          setName(user.display_name);
+          console.log(user.display_name);
+        })
+      
+    }, []);
+
+    const prevOpen = useRef(open);
+    useEffect(() => {
       if (prevOpen.current === true && open === false) {
         anchorRef.current.focus();
       }
@@ -84,7 +100,7 @@ export default function Header() {
                         aria-haspopup="true" 
                         onClick={handleToggle} 
                         className={classes.button}>
-                        <Avatar className={classes.avatar}></Avatar> friend
+                        <Avatar className={classes.avatar}></Avatar> {name}
                     </Button>
                         <Typography variant="h6" className={classes.title} noWrap>
                             we like music we like music
