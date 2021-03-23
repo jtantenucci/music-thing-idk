@@ -43,7 +43,7 @@ export default function App() {
           <Header user={user}/>
         :
           <DefaultHeader />
-        }
+      }
         <Drawer />
         <Switch>
           <Route exact path="/" component={Homepage} />

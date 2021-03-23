@@ -71,7 +71,7 @@ export default function Header() {
 
     useEffect(() => {
         spotify.getMe().then(user => {
-          setUser(user);
+          setUser(user.display_name);
           setName(user.display_name);
           console.log(user.display_name);
         })
@@ -100,7 +100,7 @@ export default function Header() {
                         aria-haspopup="true" 
                         onClick={handleToggle} 
                         className={classes.button}>
-                        <Avatar className={classes.avatar}></Avatar> {name}
+                        <Avatar className={classes.avatar}></Avatar> {user}
                     </Button>
                         <Typography variant="h6" className={classes.title} noWrap>
                             we like music we like music

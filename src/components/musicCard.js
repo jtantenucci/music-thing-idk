@@ -1,9 +1,11 @@
 import { React, useState, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { getTokenFromUrl } from '../spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
@@ -17,13 +19,15 @@ const useStyles = makeStyles((theme) => ({
   },
   details: {
     display: 'flex',
+    margin: theme.spacing(1),
     flexDirection: 'column',
   },
-  content: {
-    flex: '1 0 auto',
+  songTitle: {
+    fontSize: 20,
   },
   cover: {
-    width: 151,
+    height: 200,
+    width: 200,
   },
   controls: {
     display: 'flex',
@@ -66,27 +70,45 @@ const spotify = new SpotifyWebApi();
 export default function MusicCard() {
     const classes = useStyles();
     const theme = useTheme();
-    const [artistName, setArtistName] = useState(null);
+    const [tracks, setTracks] = useState([]);
     const [trackName, setTrackName] = useState(null);
-
-
+    const [token, setToken] = useState(null);
+  
+    //run code based on given condition
     useEffect(() => {
-          spotify.getMyTopTracks().then(topTracks => {
-            setTrackName(topTracks.items[5].name)
-            setArtistName(topTracks.items[5].artists[0].name)
-        })
-      
+      const hash = getTokenFromUrl();
+      window.location.hash = ""; //this clears the access token from the url for security
+  
+      const _token = hash.access_token; //object that gets returned
+  
+      if (_token) { //if there is a token set it to the token in usestate
+        setToken(_token);
+        spotify.setAccessToken(_token); //giving it back to the spotify api
+        spotify.getMyTopTracks().then(topTracks => {
+          setTracks(topTracks.items)
+          console.log(topTracks)
+      })
+      }
+  
     }, []);
 
+
+        
+
+  const trackCard = tracks.map(track => {
   return (
-    <Card className={classes.root}>
+    <Grid item>
+      <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
-            {trackName}
+          <Typography component="h5" variant="h5" className={classes.songTitle}>
+            {track.name}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
-            {artistName}
+            {track.artists[0].name}
+          </Typography>
+          <Typography variant="subtitle2" color="textSecondary">
+            {track.album.name}
           </Typography>
         </CardContent>
         <div className={classes.controls}>
@@ -103,9 +125,16 @@ export default function MusicCard() {
       </div>
       <CardMedia
         className={classes.cover}
-        image=""
+        image={track.album.images[0].url}
         title="image to pull from spotify api"
       />
     </Card>
+    </Grid>
+  )}
+  );
+  return (
+    <Grid container direction="row" justify="center" spacing={3}>
+      {trackCard}
+    </Grid>
   );
 }

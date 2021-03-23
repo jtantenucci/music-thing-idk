@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.light,
         textShadow: "0.5px 0.5px 5px #AACDA2",
         fontStyle: 'oblique',
+        textAlign: 'center',
     },
 }));
 
@@ -35,48 +36,28 @@ export default function Home() {
 
     return (
             <div className={classes.root}>
-                <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <Typography variant="h2" className={classes.pageHead}>
-                       songs you might like: 
-                    </Typography>
-                </Grid>
-                    <Grid item xs={12} sm={4}>
-                    <MusicCard />
+                <Grid container spacing={4}>
+                    <Grid item xs={12}>
+                        <Typography variant="h2" className={classes.pageHead}>
+                        songs you've enjoyed lately: 
+                        </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={4}>
-                    <MusicCard />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                    <MusicCard />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                    <MusicCard />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                    <MusicCard />
-                    </Grid>
-                    <Grid item xs={12} sm={4}>
-                    <MusicCard />
+                    <Grid>
+                        <MusicCard />
                     </Grid>
                     <Grid item xs={12}>
-                    <Typography variant="h2" className={classes.pageHead}>
-                        now playing with friends:
-                    </Typography>
+                        <Typography variant="h2" className={classes.pageHead}>
+                        songs your friends are listening to: 
+                        </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <MusicCard />
+                    <Grid item xs={12}>
+                        <Typography variant="h2" className={classes.pageHead}>
+                        songs for the weather: 
+                        </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                    <MusicCard />
-                    </Grid>
-                    <Typography variant="h2" className={classes.pageHead}>
-                        now playing with friends:
-                    </Typography>
-                    <Typography variant="h2" className={classes.pageHead}>
-                        songs for your weather:
-                    </Typography>
                 </Grid>
+
+
             </div>
     );
 }
