@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { getTokenFromUrl } from '../spotify';
+import { useIsMounted } from '../useIsMounted';
 import SpotifyWebApi from 'spotify-web-api-js';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -68,23 +69,21 @@ const useStyles = makeStyles((theme) => ({
 const spotify = new SpotifyWebApi();
 
 export default function MusicCard() {
-    const classes = useStyles();
-    const theme = useTheme();
-    const [tracks, setTracks] = useState([]);
+  const classes = useStyles();
+  const theme = useTheme();
+  const [tracks, setTracks] = useState([]);
+  const isMounted = useIsMounted();
 
-  
-    //run code based on given condition
+
     useEffect(() => {
-        spotify.getMyTopTracks().then(topTracks => {
+      spotify.getMyTopTracks().then(topTracks => {
+        if (isMounted.current) {
           setTracks(topTracks.items)
-          console.log(topTracks)
+        }
       })
-
-  
-    }, []);
+    });
 
 
-        
 
   const trackCard = tracks.map(track => {
   return (

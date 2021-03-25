@@ -40,15 +40,18 @@ export default function App() {
       <BrowserRouter>
       <div>
       {token ?
+      <>
           <Header user={user}/>
+          <Drawer />
+          <Switch>
+            <Route exact path="/" component={() => <Homepage token={token} />} />
+            <Route exact path ="/profile" component={Profile} />
+          </Switch>
+      </>
         :
           <DefaultHeader />
       }
-        <Drawer />
-        <Switch>
-          <Route exact path="/" component={Homepage} />
-          <Route exact path ="/profile" component={Profile} />
-        </Switch>
+
       </div>
       </BrowserRouter>
     </div>
