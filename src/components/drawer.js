@@ -54,13 +54,6 @@ export default function PermanentDrawerRight() {
           ))}
         </List>
         <Divider />
-        <List alignItems="center" className={classes.listItem}>
-          {[{mdiSpotify}, {mdiTwitter}, {mdiGithub}, {mdiMusic}].map((text, index) => (
-            <ListItem Icon key={index}>
-                <Icon path={text} size={1} />
-            </ListItem>
-          ))}
-        </List>
       </Drawer>
     </div>
   );

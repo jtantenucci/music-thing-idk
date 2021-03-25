@@ -71,24 +71,15 @@ export default function MusicCard() {
     const classes = useStyles();
     const theme = useTheme();
     const [tracks, setTracks] = useState([]);
-    const [trackName, setTrackName] = useState(null);
-    const [token, setToken] = useState(null);
+
   
     //run code based on given condition
     useEffect(() => {
-      const hash = getTokenFromUrl();
-      window.location.hash = ""; //this clears the access token from the url for security
-  
-      const _token = hash.access_token; //object that gets returned
-  
-      if (_token) { //if there is a token set it to the token in usestate
-        setToken(_token);
-        spotify.setAccessToken(_token); //giving it back to the spotify api
         spotify.getMyTopTracks().then(topTracks => {
           setTracks(topTracks.items)
           console.log(topTracks)
       })
-      }
+
   
     }, []);
 
