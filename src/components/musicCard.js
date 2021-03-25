@@ -67,21 +67,20 @@ const useStyles = makeStyles((theme) => ({
 }));
 const spotify = new SpotifyWebApi();
 
-export default function MusicCard() {
+export default function MusicCard({token}) {
     const classes = useStyles();
     const theme = useTheme();
     const [tracks, setTracks] = useState([]);
 
-  
     //run code based on given condition
-    useEffect(() => {
-        spotify.getMyTopTracks().then(topTracks => {
-          setTracks(topTracks.items)
-          console.log(topTracks)
-      })
+    // useEffect(() => {
+    //     spotify.getMyTopTracks().then(topTracks => {
+    //       setTracks(topTracks.items)
+    //       console.log(topTracks)
+    //   })
 
   
-    }, []);
+    // }, []);
 
 
         
