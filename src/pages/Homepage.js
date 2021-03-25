@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Home() {
+export default function Home({token}) {
     const classes = useStyles();
     
 
@@ -44,7 +44,7 @@ export default function Home() {
                         </Typography>
                     </Grid>
                     <Grid>
-                        <MusicCard />
+                        <MusicCard token={token} />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="h2" className={classes.pageHead}>
