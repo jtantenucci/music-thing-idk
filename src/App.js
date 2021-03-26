@@ -1,5 +1,4 @@
 import './App.css';
-import Drawer from './components/drawer';
 import Homepage from './pages/Homepage';
 import Header from './components/header';
 import DefaultHeader from './components/defaultHeader';
@@ -46,7 +45,6 @@ export default function App() {
       {token ?
       <>
           <Header user={user}/>
-          <Drawer />
           <Switch>
             <Route exact path="/" component={() => <Homepage token={token} tracks={tracks}/>} />
             <Route exact path ="/profile" component={Profile} />
