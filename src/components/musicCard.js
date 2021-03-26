@@ -1,7 +1,5 @@
-import { React, useState, useEffect } from 'react';
+import { React } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { getTokenFromUrl } from '../spotify';
-import SpotifyWebApi from 'spotify-web-api-js';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -66,14 +64,17 @@ const useStyles = makeStyles((theme) => ({
     width: 38,
   },
 }));
+<<<<<<< HEAD
 
 const spotify = new SpotifyWebApi();
+=======
+>>>>>>> 1ff89dcfba9dc179159da9906b05bf246eda67a1
 
-export default function MusicCard({token}) {
-    const classes = useStyles();
-    const theme = useTheme();
-    const [tracks, setTracks] = useState([]);
+export default function MusicCard({tracks}) {
+  const classes = useStyles();
+  const theme = useTheme();
 
+<<<<<<< HEAD
     //run code based on given condition
     useEffect(() => {
         spotify.getMyTopTracks().then(topTracks => {
@@ -83,10 +84,13 @@ export default function MusicCard({token}) {
 
   
     }, []);
+=======
+
+>>>>>>> 1ff89dcfba9dc179159da9906b05bf246eda67a1
 
   const trackCard = tracks.map(track => {
   return (
-    <Grid item>
+    <Grid item key={track.id}>
       <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>

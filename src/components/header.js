@@ -60,6 +60,7 @@ export default function Header() {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
     const [user, setUser] = useState(null);
+<<<<<<< HEAD
     const [name, setName] = useState(null);
 
     const handleDrawerOpen = () => {
@@ -70,6 +71,8 @@ export default function Header() {
       setOpen(false);
     };
 
+=======
+>>>>>>> 1ff89dcfba9dc179159da9906b05bf246eda67a1
     const handleToggle = () => {
       setOpen((prevOpen) => !prevOpen);
     };
@@ -85,7 +88,11 @@ export default function Header() {
     useEffect(() => {
         spotify.getMe().then(user => {
           setUser(user.display_name);
+<<<<<<< HEAD
           setName(user.display_name);
+=======
+          console.log(user.display_name);
+>>>>>>> 1ff89dcfba9dc179159da9906b05bf246eda67a1
         })
       
     }, []);
