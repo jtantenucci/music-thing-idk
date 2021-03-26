@@ -2,10 +2,12 @@ import { React, useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Avatar, Button, ClickAwayListener, Grid,
   Grow, MenuItem, MenuList, Paper, 
-  Popper, Toolbar, Typography } from '@material-ui/core';
+  Popper, Toolbar, Typography, IconButton } from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import SpotifyWebApi from 'spotify-web-api-js';
-
+import Drawer from "@material-ui/core/Drawer";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import clsx from "clsx";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,11 +54,22 @@ const spotify = new SpotifyWebApi();
 
 
 export default function Header() {
+
     const classes = useStyles();
+    const [openDrawer, setOpenDrawer] = useState(false);
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
     const [user, setUser] = useState(null);
     const [name, setName] = useState(null);
+
+    const handleDrawerOpen = () => {
+      setOpenDrawer(true);
+    };
+  
+    const handleDrawerClose = () => {
+      setOpen(false);
+    };
+
     const handleToggle = () => {
       setOpen((prevOpen) => !prevOpen);
     };
@@ -73,7 +86,6 @@ export default function Header() {
         spotify.getMe().then(user => {
           setUser(user.display_name);
           setName(user.display_name);
-          console.log(user.display_name);
         })
       
     }, []);
@@ -103,7 +115,7 @@ export default function Header() {
                         <Avatar className={classes.avatar}></Avatar> {user}
                     </Button>
                         <Typography variant="h6" className={classes.title} noWrap>
-                            we like music we like music
+                            :)
                         </Typography>
                     </Grid>
                         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
@@ -128,7 +140,31 @@ export default function Header() {
                             )}
                         </Popper>
                     </Toolbar>
+                    <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleDrawerOpen}
+            className={clsx(open && classes.hide)}
+          ></IconButton>
                 </AppBar>
+                <div className={classes.root}>
+       <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            <ChevronRightIcon />
+          </IconButton>
+        </div>
+      </Drawer>
+    </div>
             </div>
         )
     }

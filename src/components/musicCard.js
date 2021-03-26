@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     backgroundColor: theme.palette.primary.special,
+    maxWidth: '100%',
   },
   details: {
     display: 'flex',
@@ -65,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
     width: 38,
   },
 }));
+
 const spotify = new SpotifyWebApi();
 
 export default function MusicCard({token}) {
@@ -73,17 +75,14 @@ export default function MusicCard({token}) {
     const [tracks, setTracks] = useState([]);
 
     //run code based on given condition
-    // useEffect(() => {
-    //     spotify.getMyTopTracks().then(topTracks => {
-    //       setTracks(topTracks.items)
-    //       console.log(topTracks)
-    //   })
+    useEffect(() => {
+        spotify.getMyTopTracks().then(topTracks => {
+          setTracks(topTracks.items)
+          console.log(topTracks)
+      })
 
   
-    // }, []);
-
-
-        
+    }, []);
 
   const trackCard = tracks.map(track => {
   return (

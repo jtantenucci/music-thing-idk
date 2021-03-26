@@ -4,6 +4,7 @@ import { makeStyles, Grid, Typography  } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
+        maxWidth: '100vh',
         flexGrow: 1,
         paddingTop: 80,
         paddingLeft: 20,
