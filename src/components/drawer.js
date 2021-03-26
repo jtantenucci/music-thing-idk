@@ -5,8 +5,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import Icon from '@mdi/react';
-import { mdiSpotify, mdiGithub, mdiTwitter, mdiMusic } from '@mdi/js';
 
 const drawerWidth = 200;
 

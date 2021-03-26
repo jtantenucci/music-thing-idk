@@ -15,6 +15,7 @@ export default function App() {
 
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [tracks, setTracks] = useState([]);
 
   //run code based on given condition
   useEffect(() => {
@@ -31,6 +32,9 @@ export default function App() {
         setUser(user);
         console.log(user.display_name);
       })
+      spotify.getMyTopTracks().then(topTracks => {
+          setTracks(topTracks.items)
+      })
     }
 
   }, []);
@@ -44,14 +48,13 @@ export default function App() {
           <Header user={user}/>
           <Drawer />
           <Switch>
-            <Route exact path="/" component={() => <Homepage token={token} />} />
+            <Route exact path="/" component={() => <Homepage token={token} tracks={tracks}/>} />
             <Route exact path ="/profile" component={Profile} />
           </Switch>
       </>
         :
           <DefaultHeader />
       }
-
       </div>
       </BrowserRouter>
     </div>

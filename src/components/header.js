@@ -56,7 +56,6 @@ export default function Header() {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
     const [user, setUser] = useState(null);
-    const [name, setName] = useState(null);
     const handleToggle = () => {
       setOpen((prevOpen) => !prevOpen);
     };
@@ -72,7 +71,6 @@ export default function Header() {
     useEffect(() => {
         spotify.getMe().then(user => {
           setUser(user.display_name);
-          setName(user.display_name);
           console.log(user.display_name);
         })
       
