@@ -3,11 +3,21 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Avatar, Button, ClickAwayListener, Grid,
   Grow, MenuItem, MenuList, Paper, 
   Popper, Toolbar, Typography } from '@material-ui/core';
-import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { Link } from 'react-router-dom';
+import MenuIcon from '@material-ui/icons/Menu';
+import IconButton from '@material-ui/core/IconButton';
 import SpotifyWebApi from 'spotify-web-api-js';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
+import Hidden from '@material-ui/core/Hidden';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
 
-
+const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -27,10 +37,37 @@ const useStyles = makeStyles((theme) => ({
      },
     appBar: {
       backgroundColor: theme.palette.primary.dark,
-      zIndex: theme.zIndex.drawer + 1,
+      [theme.breakpoints.up('sm')]: {
+        zIndex: theme.zIndex.drawer + 1,
+        width: `calc(100% - ${200}px)`,
+        marginRight: 200,
+      },
       display: 'flex',
       alignItems: '',
       justifyContent: 'start',
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+      [theme.breakpoints.up('sm')]: {
+        display: 'none',
+      },
+    },
+    drawer: {
+      [theme.breakpoints.up('sm')]: {
+        width: drawerWidth,
+        flexShrink: 0,
+      },
+    },
+    drawerPaper: {
+      backgroundColor: theme.palette.primary.dark,
+      width: drawerWidth,
+    },
+    // necessary for content to be below app bar
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      backgroundColor: "#ffffff",
+      padding: theme.spacing(3),
     },
     button: {
         color: '#ffffff',
@@ -51,15 +88,40 @@ const useStyles = makeStyles((theme) => ({
 const spotify = new SpotifyWebApi();
 
 
-export default function Header() {
+export default function Header(props) {
+    const { window } = props;
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
     const [user, setUser] = useState(null);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    
+    const drawer = (
+      <div>
+        <div className={classes.toolbar} />
+        <Divider />
+        <List className={classes.listItem}>
+            {['brain', 'brain', 'brain', 'brain'].map((text, index) => (
+              <ListItem button key={index}>
+                  
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+      </div>
+    );
+
+
     const handleToggle = () => {
       setOpen((prevOpen) => !prevOpen);
     };
-  
+
+
+    const handleDrawerToggle = () => {
+      setMobileOpen(!mobileOpen);
+    };
+
+
     const handleClose = (event) => {
       if (anchorRef.current && anchorRef.current.contains(event.target)) {
         return;
@@ -85,10 +147,13 @@ export default function Header() {
       prevOpen.current = open;
     }, [open]);
 
+    const container = window !== undefined ? () => window().document.body : undefined;
+
         return (
             <div className={classes.root}>
+            <CssBaseline />
                 <AppBar position="fixed" className={classes.appBar}>
-                    <Toolbar>
+                    <Toolbar className={classes.toolbar}>
                     <Grid container direction="row" justify="space-between" alignItems ="center">
                     <Button 
                         variant="outlined"
@@ -103,6 +168,15 @@ export default function Header() {
                         <Typography variant="h6" className={classes.title} noWrap>
                             we like music we like music
                         </Typography>
+                    <IconButton
+                      color="inherit"
+                      aria-label="open drawer"
+                      edge="start"
+                      onClick={handleDrawerToggle}
+                      className={classes.menuButton}
+                    >
+                      <MenuIcon />
+                    </IconButton>
                     </Grid>
                         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                             {({ TransitionProps, placement }) => (
@@ -127,6 +201,36 @@ export default function Header() {
                         </Popper>
                     </Toolbar>
                 </AppBar>
+                <Hidden smUp implementation="css">
+                  <Drawer
+                    container={container}
+                    className={classes.drawer}
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    variant="temporary"
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                    ModalProps={{
+                          keepMounted: true,
+                    }}
+                    anchor="right"
+                  >
+                  {drawer}
+                  </Drawer>
+                </Hidden>
+                <Hidden xsDown implementation="css">
+                    <Drawer
+                      classes={{
+                        paper: classes.drawerPaper,
+                      }}
+                      variant="permanent"
+                      open
+                      anchor="right"
+                    >
+                      {drawer}
+                    </Drawer>
+                  </Hidden>
             </div>
         )
     }

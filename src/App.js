@@ -1,5 +1,6 @@
 import './App.css';
 import MenuDrawer from './components/drawer';
+import { makeStyles } from '@material-ui/core/styles';
 import Homepage from './pages/Homepage';
 import Header from './components/header';
 import DefaultHeader from './components/defaultHeader';
@@ -8,11 +9,21 @@ import { getTokenFromUrl } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Profile from './pages/Profile';
+import StickyFooter from './components/Footer';
 
 const spotify = new SpotifyWebApi(); //wrapper for the spotify api
+const useStyles = makeStyles((theme) => ({
+  app: {
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${200}px)`,
+      marginRight: 200,
+    },
+  },
+}));
+
 
 export default function App() {
-
+  const classes = useStyles();
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [tracks, setTracks] = useState([]);
@@ -40,20 +51,23 @@ export default function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className={classes.app}>
       <BrowserRouter>
       <div>
       {token ?
       <>
           <Header user={user}/>
-          <MenuDrawer />
           <Switch>
             <Route exact path="/" component={() => <Homepage token={token} tracks={tracks}/>} />
             <Route exact path ="/profile" component={Profile} />
           </Switch>
+          <StickyFooter />
       </>
         :
+        <>
           <DefaultHeader />
+          <StickyFooter />
+        </>
       }
       </div>
       </BrowserRouter>
