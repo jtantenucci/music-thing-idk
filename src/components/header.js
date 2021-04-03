@@ -108,9 +108,30 @@ const useStyles = makeStyles((theme) => ({
         height: theme.spacing(3),
         color: '#ffffff',
         backgroundColor: theme.palette.primary.dark,
-    }
-  }));
-  
+    },
+  appBar: {
+    backgroundColor: theme.palette.primary.dark,
+    zIndex: theme.zIndex.drawer + 1,
+    display: 'flex',
+    alignItems: '',
+    justifyContent: 'start',
+  },
+  button: {
+    color: '#ffffff',
+    borderColor: '#ffffff',
+    fontStyle: 'italic',
+    paddingRight: 20,
+    marginLeft: -10,
+  },
+  avatar: {
+    width: theme.spacing(3),
+    margin: theme.spacing(1),
+    height: theme.spacing(3),
+    color: '#ffffff',
+    backgroundColor: theme.palette.primary.dark,
+  }
+}));
+
 const spotify = new SpotifyWebApi();
 
 

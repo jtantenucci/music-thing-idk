@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexGrow: 0,
     backgroundColor: theme.palette.primary.special,
+    maxWidth: '100%',
   },
   details: {
     [theme.breakpoints.up('sm')]: {
@@ -107,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
 export default function MusicCard({ tracks, contentOpen }) {
   const classes = useStyles();
   const theme = useTheme();
-
 
 
   const trackCard = tracks.map(track => {

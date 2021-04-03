@@ -14,7 +14,6 @@ ReactDOM.render(
       <ThemeProvider theme={responsiveFontSizes(theme)}>
       {/* <DataLayer initialState reducer> */}
         <App />
-      {/* </DataLayer> */}
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
