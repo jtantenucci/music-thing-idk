@@ -14,18 +14,24 @@ import StickyFooter from './components/Footer';
 const spotify = new SpotifyWebApi(); //wrapper for the spotify api
 const useStyles = makeStyles((theme) => ({
   app: {
-      flexGrow: 1,
-      padding: 80,
-      backgroundColor: theme.palette.primary.dark,
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
+    minWidth: 450,
+    flexGrow: 1,
+    paddingTop: 80,
+    paddingLeft: 30,
+    paddingRight: 30,
+    backgroundColor: theme.palette.primary.dark,
+    transition: theme.transitions.create('transform', {
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   appShift: {
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    [theme.breakpoints.down('sm')]: {
+      marginRight: 0,
+    },
     marginRight: 200,
   },
 }));
@@ -35,6 +41,8 @@ export default function App() {
   const classes = useStyles();
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [userImage, setUserImage] = useState(null);
+  const [userName, setUserName] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [contentOpen, setContentOpen] = useState(true);
@@ -52,14 +60,19 @@ export default function App() {
 
       spotify.getMe().then(user => {
         setUser(user);
+        setUserName(user.display_name);
+        setUserImage(user.images[0].url);
         console.log(user.display_name);
       })
+
       spotify.getMyTopTracks().then(topTracks => {
           setTracks(topTracks.items)
       })
     }
 
   }, []);
+
+
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
@@ -80,15 +93,29 @@ export default function App() {
       {token ?
       <>
           <Header 
-          user={user} 
-          handleDrawerOpen={handleDrawerOpen} 
-          handleDrawerClose={handleDrawerClose}
-          drawerOpen={drawerOpen}
-          contentOpen={contentOpen}  
+            userName={userName}
+            userImage={userImage} 
+            handleDrawerOpen={handleDrawerOpen} 
+            handleDrawerClose={handleDrawerClose}
+            drawerOpen={drawerOpen}
+            contentOpen={contentOpen}  
           />
           <Switch>
-            <Route exact path="/" component={() => <Homepage token={token} contentOpen={contentOpen} tracks={tracks}/>} />
-            <Route exact path ="/profile" component={() => <Profile token={token} user={user}/>} />
+            <Route exact path="/" component={() => 
+              <Homepage token={token} 
+                contentOpen={contentOpen} 
+                tracks={tracks}
+              />} 
+            />
+            <Route exact path ="/profile" component={() => 
+              <Profile 
+                token={token} 
+                username={user.display_name}
+                followers={user.followers.total}
+                profileLink={user.external_urls.spotify}
+                userImage={user.images[0].url}
+              />} 
+            />
           </Switch>
           <StickyFooter />
       </>

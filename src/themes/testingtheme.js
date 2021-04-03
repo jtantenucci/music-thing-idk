@@ -46,13 +46,24 @@ const theme = createMuiTheme ({
       textTransform: 'none',
     }
   },
-  breakpoints: {
-    values: {
-      xs: 600,
-      sm: 700,
-    },
-  },
   overrides: {
+    MuiCardHeader: {
+      root: {
+        textAlign: 'start',
+        height: 90,
+      },
+      title: {
+        textAlign: 'start',
+        color: 'white',
+        textShadow: "0.5px 0.5px 6px #9CE79C",
+        fontSize: 16,
+      },
+      subheader: {
+        fontSize: 12,
+        fontStyle: 'oblique',
+        paddingBottom: 0,
+      },
+    },
     MuiLink: {
       underlineHover: {
         color: '#fff',
