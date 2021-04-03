@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles, Grid, Typography  } from '@material-ui/core';
-import SpotifyWebApi from 'spotify-web-api-js';
-import Header from '../components/header';
+import React from 'react';
+import { makeStyles, Typography  } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -11,19 +9,6 @@ const useStyles = makeStyles((theme) => ({
         paddingRight: 275,
         backgroundColor: theme.palette.primary.dark,
     },
-    box: {
-        borderRadius: '5px',
-        backgroundColor: theme.palette.primary.dark,
-    },
-    title: {
-        fontSize: 14,
-    },
-    titleBar: {
-        fontStyle: 'oblique',
-        color: theme.palette.primary.light,
-        background:
-          'linear-gradient(to top, rgba(0,0,0,0.7) 40%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-    },
     pageHead: {
         color: theme.palette.secondary.light,
         textShadow: "0.5px 0.5px 5px #AACDA2",
@@ -32,26 +17,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const spotify = new SpotifyWebApi();
-
-export default function Profile() {
-
+export default function Profile({ token, user }) {
     const classes = useStyles();
 
-    const [user, setUser] = useState(null);
-
-    useEffect(() => {
-        spotify.getMe().then(user => {
-          setUser(user)
-      })
-    
-    
-    }, []);
-    
     return (
         <div className={classes.root}>
-            <Header />
-
+            <Typography variant="h2" className={classes.pageHead}>
+                welcome to {user.profile_name}'s account :)
+            </Typography>
         </div>
     );
 }

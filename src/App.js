@@ -88,7 +88,7 @@ export default function App() {
           />
           <Switch>
             <Route exact path="/" component={() => <Homepage token={token} contentOpen={contentOpen} tracks={tracks}/>} />
-            <Route exact path ="/profile" component={Profile} />
+            <Route exact path ="/profile" component={() => <Profile token={token} user={user}/>} />
           </Switch>
           <StickyFooter />
       </>

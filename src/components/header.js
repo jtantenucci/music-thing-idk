@@ -19,117 +19,98 @@ import ListItemText from '@material-ui/core/ListItemText';
 
 const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        paddingLeft: 10,
-        paddingRight: 10,
-        backgroundColor: theme.palette.primary.dark,
-        flexGrow: 1,
-    },
-    title: {
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
-      flexShrink: 0,
-      color: theme.palette.secondary.main,
-      borderRadius: '5px',
-      padding: "5px 5px",
-      textShadow: "0.5px 0.5px 6px white",
+  root: {
+      display: 'flex',
+      paddingLeft: 10,
+      paddingRight: 10,
+      backgroundColor: theme.palette.primary.dark,
+      flexGrow: 1,
+  },
+  title: {
+    color: theme.palette.secondary.main,
+    borderRadius: '5px',
+    padding: "5px 5px",
+    textShadow: "0.5px 0.5px 6px white",
       '&:hover': {
         color: theme.palette.primary.light,
         textDecoration: 'none',  
       }
-     },
-     appBar: {
-       height: 64,
-       justifyItems: 'center',
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
     },
-    appBarShift: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      justifyItems: 'center',
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginRight: drawerWidth,
-    },
-    hide: {
-      display: 'none',
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-    drawerPaper: {
-      backgroundColor: theme.palette.primary.dark,
-      width: drawerWidth,
-    },
-    drawerHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-start',
-    },
-    // necessary for content to be below app bar
-    toolbar: theme.mixins.toolbar,
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(1),
-        backgroundColor: theme.palette.primary.dark,
-        borderColor: theme.palette.primary.main,
-    },
-    contentShift: {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginRight: 0,
-    },
-    button: {
-      [theme.breakpoints.down('xs')]: {
-        display: 'none',
-      },
-      color: '#ffffff',
-      borderColor: '#ffffff',
-      fontStyle: 'italic',
-      paddingRight: 20,
-      paddingTop: 0,
-      paddingBottom: 0,
-    },
-    avatar: {
-        width: theme.spacing(3),
-        margin: theme.spacing(1),
-        height: theme.spacing(3),
-        color: '#ffffff',
-        backgroundColor: theme.palette.primary.dark,
-    },
-  appBar: {
+    appBar: {
+    height: 56,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    height: 56,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
+  },
+  hide: {
+    display: 'none',
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
     backgroundColor: theme.palette.primary.dark,
-    zIndex: theme.zIndex.drawer + 1,
+    width: drawerWidth,
+  },
+  drawerHeader: {
     display: 'flex',
-    alignItems: '',
-    justifyContent: 'start',
+    alignItems: 'center',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: 'flex-start',
+  },
+    // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(1),
+      backgroundColor: theme.palette.primary.dark,
+      borderColor: theme.palette.primary.main,
+  },
+  contentShift: {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: 0,
   },
   button: {
+    flexShrink: 0,
     color: '#ffffff',
     borderColor: '#ffffff',
     fontStyle: 'italic',
     paddingRight: 20,
-    marginLeft: -10,
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   avatar: {
-    width: theme.spacing(3),
+    width: theme.spacing(2),
     margin: theme.spacing(1),
-    height: theme.spacing(3),
+    height: theme.spacing(2),
     color: '#ffffff',
     backgroundColor: theme.palette.primary.dark,
-  }
+  },
+  buttonDrawerOpen: {
+    flexShrink: 0,
+    color: '#ffffff',
+    borderColor: '#ffffff',
+    fontStyle: 'italic',
+    paddingRight: 20,
+    paddingTop: 5,
+    paddingBottom: 5,
+  },
 }));
 
 const spotify = new SpotifyWebApi();
@@ -185,31 +166,35 @@ export default function Header({ handleDrawerOpen, handleDrawerClose, drawerOpen
               })}
             >
                 <Toolbar className={classes.toolbar}>
-                  <Grid container direction="row" justify="space-between" alignItems ="center">
-                    <Button 
-                        variant="outlined"
-                        size="small"
-                        ref={anchorRef}
-                        aria-controls={open ? 'menu-list-grow' : undefined}
-                        aria-haspopup="true" 
-                        onClick={handleToggle} 
-                        className={classes.button}>
-                        <Avatar className={classes.avatar}></Avatar> {user}
-                    </Button>
-                  </Grid>
-                    <Grid container justify="flex-end" alignItems="center">
-                        <Typography variant="h6" className={classes.title} noWrap>
+                  <Grid container direction="row" justify="space-between" alignItems="center">
+                    <Grid item xs={6}>
+                      <Button 
+                          variant="outlined"
+                          size="small"
+                          ref={anchorRef}
+                          aria-controls={open ? 'menu-list-grow' : undefined}
+                          aria-haspopup="true" 
+                          onClick={handleToggle} 
+                          className={drawerOpen ? classes.buttonDrawerOpen : classes.button}>
+                          <Avatar className={classes.avatar}></Avatar> {user}
+                      </Button>
+                    </Grid>
+                      <Grid item xs={3}>
+                      <Typography variant="h6" className={classes.title} noWrap>
                             we like music
                         </Typography>
+                      </Grid>
+                      <Grid item xs={3}>
                         <IconButton
-                          color="inherit"
-                          aria-label="open drawer"
-                          edge="end"
-                          onClick={handleDrawerOpen}
-                          className={clsx(drawerOpen && classes.hide)}
-                        >
-                          <MenuIcon />
-                        </IconButton>
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="end"
+                            onClick={handleDrawerOpen}
+                            className={clsx(drawerOpen && classes.hide)}
+                          >
+                            <MenuIcon />
+                          </IconButton>
+                      </Grid>
                     </Grid>
                         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                             {({ TransitionProps, placement }) => (
