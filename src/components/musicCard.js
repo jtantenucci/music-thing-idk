@@ -9,28 +9,68 @@ import Typography from '@material-ui/core/Typography';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    flexGrow: 0,
     backgroundColor: theme.palette.primary.special,
   },
   details: {
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 20,
+      padding: 0,
+      flexShrink: 0,
+      maxHeight: 200,
+      flexDirection: 'column',
+      display: 'flex',
+    },
+    fontSize: 15,
+    flexShrink: 0,
+    padding: 0,
+    height: 175,
+    width: 240,
     display: 'flex',
-    margin: theme.spacing(1),
     flexDirection: 'column',
   },
   songTitle: {
-    fontSize: 20,
+    fontSize: 19,
+    textShadow: "0.5px 0.5px 5px #AACDA2",
+    flexShrink: 0,
+  },
+  songTitle2: {
+    fontSize: 16,
+    textShadow: "0.5px 0.5px 5px #AACDA2",
+    flexShrink: 0,
+  },
+  songArtist: {
+    fontSize: 16,
+  },
+  div: {
+    marginLeft: 12,
+    marginRight: 12,
+  },
+  songAlbum: {
+    fontSize: 14,
+    fontStyle: 'oblique',
   },
   cover: {
-    height: 200,
-    width: 200,
+    flexShrink: 0,
+    height: 175,
+    width: 175,
+  },
+  content: {
+    paddingTop: 12,
+    paddingBottom: 0,
+    paddingRight: 0,
+    flex: '1 0 auto',
   },
   controls: {
+    paddingTop: 5,
+    paddingLeft: 12,
     display: 'flex',
     alignItems: 'center',
-    paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     '&:hover': {
         color: theme.palette.primary.light,
@@ -59,12 +99,12 @@ const useStyles = makeStyles((theme) => ({
         color: theme.palette.secondary.main,
         textDecoration: 'none',  
       },
-    height: 38,
-    width: 38,
+    height: 30,
+    width: 30,
   },
 }));
 
-export default function MusicCard({tracks}) {
+export default function MusicCard({ tracks, contentOpen }) {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -76,16 +116,17 @@ export default function MusicCard({tracks}) {
       <Card className={classes.root}>
       <div className={classes.details}>
         <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5" className={classes.songTitle}>
+          <Typography component="h5" variant="h5" className={track.name.length < 24 ? classes.songTitle : classes.songTitle2}>
             {track.name}
           </Typography>
-          <Typography variant="subtitle1" color="textSecondary">
+          <Typography color="textSecondary" className={classes.songArtist}>
             {track.artists[0].name}
           </Typography>
-          <Typography variant="subtitle2" color="textSecondary">
+          <Typography color="textSecondary" className={classes.songAlbum}>
             {track.album.name}
           </Typography>
         </CardContent>
+        <Divider className={classes.div}/>
         <div className={classes.controls}>
           <IconButton aria-label="previous" className={classes.skipIcons}>
             {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
@@ -108,7 +149,7 @@ export default function MusicCard({tracks}) {
   )}
   );
   return (
-    <Grid container direction="row" justify="center" spacing={3}>
+    <Grid container direction="row" justify={contentOpen ? "center" : "flex start"} spacing={1}>
       {trackCard}
     </Grid>
   );

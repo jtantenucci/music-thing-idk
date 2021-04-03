@@ -1,23 +1,32 @@
 import './App.css';
-import MenuDrawer from './components/drawer';
-import { makeStyles } from '@material-ui/core/styles';
 import Homepage from './pages/Homepage';
 import Header from './components/header';
+import clsx from 'clsx';
 import DefaultHeader from './components/defaultHeader';
+import { makeStyles } from '@material-ui/core/styles';
 import { useEffect, useState } from 'react';
 import { getTokenFromUrl } from './spotify';
 import SpotifyWebApi from 'spotify-web-api-js';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Profile from './pages/Profile';
 import StickyFooter from './components/Footer';
 
 const spotify = new SpotifyWebApi(); //wrapper for the spotify api
 const useStyles = makeStyles((theme) => ({
   app: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${200}px)`,
-      marginRight: 200,
-    },
+      flexGrow: 1,
+      padding: 80,
+      backgroundColor: theme.palette.primary.dark,
+      transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+      }),
+  },
+  appShift: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: 200,
   },
 }));
 
@@ -27,6 +36,8 @@ export default function App() {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [tracks, setTracks] = useState([]);
+  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [contentOpen, setContentOpen] = useState(true);
 
   //run code based on given condition
   useEffect(() => {
@@ -50,15 +61,33 @@ export default function App() {
 
   }, []);
 
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+    setContentOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
+    setContentOpen(false);
+  };
+
   return (
-    <div className={classes.app}>
+    <div className={clsx(classes.app, {
+      [classes.appShift]: contentOpen,
+    })}>
       <BrowserRouter>
       <div>
       {token ?
       <>
-          <Header user={user}/>
+          <Header 
+          user={user} 
+          handleDrawerOpen={handleDrawerOpen} 
+          handleDrawerClose={handleDrawerClose}
+          drawerOpen={drawerOpen}
+          contentOpen={contentOpen}  
+          />
           <Switch>
-            <Route exact path="/" component={() => <Homepage token={token} tracks={tracks}/>} />
+            <Route exact path="/" component={() => <Homepage token={token} contentOpen={contentOpen} tracks={tracks}/>} />
             <Route exact path ="/profile" component={Profile} />
           </Switch>
           <StickyFooter />

@@ -46,6 +46,12 @@ const theme = createMuiTheme ({
       textTransform: 'none',
     }
   },
+  breakpoints: {
+    values: {
+      xs: 600,
+      sm: 700,
+    },
+  },
   overrides: {
     MuiLink: {
       underlineHover: {

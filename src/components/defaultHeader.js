@@ -15,11 +15,11 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     title: {
-        color: theme.palette.secondary.light,
+      color: theme.palette.secondary.main,
         borderRadius: '5px',
         textShadow: "0.5px 0.5px 6px white",
         '&:hover': {
-          color: theme.palette.secondary.main,
+          color: theme.palette.secondary.light,
           textDecoration: 'none',  
         }
        },
@@ -72,7 +72,7 @@ export default function DefaultHeader() {
                         <Icon path={mdiSpotify} size={1} className={classes.icon} />
                       </Button>
                         <Typography variant="h6" className={classes.title} noWrap>
-                            placeholderlol
+                            javascript sucks
                         </Typography>
                     </Grid>
                     </Toolbar>
