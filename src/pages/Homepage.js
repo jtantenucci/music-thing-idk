@@ -1,6 +1,7 @@
 import React from 'react';
 import MusicCard from '../components/musicCard';
-import { makeStyles, Grid, Typography  } from '@material-ui/core';
+import NowPlaying from '../components/nowPlaying';
+import { makeStyles, Grid, Typography, Button  } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     pageHead: {
@@ -28,10 +29,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Home({token, tracks, contentOpen}) {
+export default function Home({ token, tracks, contentOpen, playingObject, checkIfPlaying}) {
     const classes = useStyles();
     
-
     return (
             <>
                 <Grid container xs={12} spacing={3} justify={contentOpen ? "center" : "flex start"}>
@@ -44,9 +44,10 @@ export default function Home({token, tracks, contentOpen}) {
                         <MusicCard token={token} tracks={tracks} contentOpen={contentOpen}/>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="h2" className={classes.pageHead}>
-                        songs your friends are listening to: 
-                        </Typography>
+                    <Button onClick={checkIfPlaying}>
+                        check if music is playing
+                    </Button>
+                        <NowPlaying playingObject={playingObject} />
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="h2" className={classes.pageHead}>

@@ -1,4 +1,5 @@
 import { createMuiTheme, breakpoints } from '@material-ui/core';
+import HelveticaWorld from '../font/HelveticaWorld-Regular.ttf';
 
 
 const theme = createMuiTheme ({
@@ -40,11 +41,11 @@ const theme = createMuiTheme ({
     },
   }, 
   typography: {
-    fontFamily: 'Helvetica',
+    fontFamily: 'HelveticaWorld',
     button: {
-      fontFamily: 'Helvetica',
+      fontFamily: 'HelveticaWorld',
       textTransform: 'none',
-    }
+    },
   },
   overrides: {
     MuiCardHeader: {
@@ -68,6 +69,11 @@ const theme = createMuiTheme ({
       underlineHover: {
         color: '#fff',
         textDecoration: 'none',
+      },
+    },
+    MuiCssBaseline: {
+      '@global': {
+        '@font-face': [HelveticaWorld],
       },
     },
   },

@@ -1,5 +1,6 @@
 import { React } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { whiteSpace } from '@material-ui/system';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -28,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 15,
     flexShrink: 0,
     padding: 0,
+    paddingRight: 5,
     height: 175,
     width: 240,
     display: 'flex',
@@ -36,12 +38,11 @@ const useStyles = makeStyles((theme) => ({
   songTitle: {
     fontSize: 19,
     textShadow: "0.5px 0.5px 5px #AACDA2",
-    flexShrink: 0,
+
   },
   songTitle2: {
     fontSize: 16,
     textShadow: "0.5px 0.5px 5px #AACDA2",
-    flexShrink: 0,
   },
   songArtist: {
     fontSize: 16,
@@ -133,7 +134,7 @@ export default function MusicCard({ tracks, contentOpen }) {
       <Card className={classes.root}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
-            <Typography component="h5" variant="h5" className={track.name.length < 24 ? classes.songTitle : classes.songTitle2}>
+            <Typography className={classes.songTitle}>
               {track.name}
             </Typography>
             <Typography color="textSecondary" className={classes.songArtist}>

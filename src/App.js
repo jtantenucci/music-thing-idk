@@ -41,11 +41,20 @@ export default function App() {
   const classes = useStyles();
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
+  const [isPlaying, setPlaying] = useState(null);
   const [userImage, setUserImage] = useState(null);
   const [userName, setUserName] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [contentOpen, setContentOpen] = useState(true);
+  const [nowPlaying, setNowPlaying] = useState(
+    {playing: {
+        songTitle: "",
+        songArtist: "",
+        songAlbum: "",
+        songAlbumArt: ""
+    }
+  });
 
   //run code based on given condition
   useEffect(() => {
@@ -62,7 +71,6 @@ export default function App() {
         setUser(user);
         setUserName(user.display_name);
         setUserImage(user.images[0].url);
-        console.log(user.display_name);
       })
 
       spotify.getMyTopTracks().then(topTracks => {
@@ -70,9 +78,33 @@ export default function App() {
       })
     }
 
+    spotify.getMyCurrentPlaybackState().then(res => {
+      setPlaying(res.is_playing);
+      console.log(res.is_playing);
+    })
+
   }, []);
 
+const checkIfPlaying = () => {
+  spotify.getMyCurrentPlaybackState().then(res => {
+    setPlaying(res.is_playing);
+    console.log(res.is_playing);
+    if (isPlaying) {
+      spotify.getMyCurrentPlayingTrack().then(res => {
+        console.log(res.item);
+        setNowPlaying({...nowPlaying, playing: {
+            songTitle: res.item.name,
+            songArtist: res.item.artists[0].name,
+            songAlbum: res.item.album.name,
+            songAlbumArt: res.item.album.images[0].url,
+          }
+        })
+      })
+    }
+  })
+};
 
+console.log(nowPlaying);
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
@@ -105,6 +137,8 @@ export default function App() {
               <Homepage token={token} 
                 contentOpen={contentOpen} 
                 tracks={tracks}
+                checkIfPlaying={checkIfPlaying}
+                playingObject={nowPlaying.playing}
               />} 
             />
             <Route exact path ="/profile" component={() => 

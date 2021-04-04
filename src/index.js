@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './font/HelveticaWorld-Regular.ttf';
 import App from './App';
 import theme from './themes/testingtheme';
 import reportWebVitals from './reportWebVitals';
