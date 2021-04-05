@@ -1,16 +1,14 @@
 import { React } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { whiteSpace } from '@material-ui/system';
+import MusicCardTitle from '../pieces/musicCardTitle';
+import MusicCardControls from '../pieces/musicCardControls';
+import MusicCardAlbumArt from '../pieces/musicCardAlbumArt';
+import MobileTitle from '../pieces/mobileTitle';
+import MobileControls from '../pieces/mobileControls';
+import MobileAlbumArt from '../pieces/mobileAlbumArt';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
 import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import Divider from '@material-ui/core/Divider';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
@@ -23,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   xsCard: {
     width: 200,
+    alignItems: 'start',
     height: '100%',
   },
   details: {
@@ -78,12 +77,10 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 12,
     display: 'flex',
     alignItems: 'center',
-    paddingBottom: theme.spacing(1),
     '&:hover': {
-        color: theme.palette.primary.light,
-        textDecoration: 'none',  
-      },
-
+      color: theme.palette.primary.light,
+      textDecoration: 'none',
+    },
   },
   xsControls: {
     display: 'flex',
@@ -91,34 +88,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     paddingBottom: theme.spacing(1),
     '&:hover': {
-        color: theme.palette.primary.light,
-        textDecoration: 'none',  
-      },
-
-  },
-  skipIcons: {
-    color: theme.palette.secondary.light,
-    '&:hover': {
-        color: theme.palette.secondary.main,
-        textDecoration: 'none',  
-      },
-      '&:active': {
-        color: theme.palette.secondary.main,
-        textDecoration: 'none',  
-      },
-  },
-  playIcon: {
-    color: theme.palette.secondary.light,
-    '&:hover': {
-        color: theme.palette.secondary.main,
-        textDecoration: 'none',  
-      },
-      '&:active': {
-        color: theme.palette.secondary.main,
-        textDecoration: 'none',  
-      },
-    height: 30,
-    width: 30,
+      color: theme.palette.primary.light,
+      textDecoration: 'none',
+    },
   },
 }));
 
@@ -129,79 +101,42 @@ export default function MusicCard({ tracks, contentOpen }) {
 
   const newTracks = tracks.slice(3, tracks.length - 1);
   const trackCard = newTracks.map(track => {
-  return (
-    <Grid item key={track.id}>
-      <Card className={classes.root}>
-        <div className={classes.details}>
-          <CardContent className={classes.content}>
-            <Typography className={classes.songTitle}>
-              {track.name}
-            </Typography>
-            <Typography color="textSecondary" className={classes.songArtist}>
-              {track.artists[0].name}
-            </Typography>
-            <Typography color="textSecondary" className={classes.songAlbum}>
-              {track.album.name}
-            </Typography>
-          </CardContent>
-          <Divider className={classes.div}/>
-          <div className={classes.controls}>
-            <IconButton aria-label="previous" className={classes.skipIcons}>
-              {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-            </IconButton>
-            <IconButton aria-label="play/pause">
-              <PlayArrowIcon className={classes.playIcon} />
-            </IconButton>
-            <IconButton aria-label="next"  className={classes.skipIcons}>
-              {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-            </IconButton>
+    return (
+      <Grid item key={track.id}>
+        <Card className={classes.root}>
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <MusicCardTitle name={track.name} artist={track.artists[0].name} album={track.album.name} />
+            </CardContent>
+            <Divider className={classes.div} />
+            <div className={classes.controls}>
+              <MusicCardControls />
+            </div>
           </div>
-        </div>
-        <CardMedia
-          className={classes.cover}
-          image={track.album.images[0].url}
-          title="image to pull from spotify api"
-        />
-      </Card>
-    </Grid>
-    )}
-  );
+          <MusicCardAlbumArt image={track.album.images[0].url} />
+        </Card>
+      </Grid>
+    )
+  });
 
   const mobileTrackCard = newTracks.map(track => {
     return (
       <Grid item key={track.id}>
-      <Card className={classes.root}>
-        <div className={classes.xsCard}>
-          <CardHeader
-          title={track.name}
-          subheader={track.artists[0].name}
-          className={classes.cardHeader}
-          >
-          </CardHeader>
-          <CardMedia
-            className={classes.cover}
-            image={track.album.images[0].url}
-            title="image to pull from spotify api"
-          />
-          <div className={classes.xsControls}>
-            <IconButton aria-label="previous" className={classes.skipIcons}>
-              {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-            </IconButton>
-            <IconButton aria-label="play/pause">
-              <PlayArrowIcon className={classes.playIcon} />
-            </IconButton>
-            <IconButton aria-label="next"  className={classes.skipIcons}>
-              {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-            </IconButton>
+        <Card className={classes.root}>
+          <div className={classes.xsCard}>
+            <MobileTitle title={track.name} artist={track.artists[0].name} />
+            <MobileAlbumArt image={track.album.images[0].url} />
+            <div className={classes.xsControls}>
+              <MobileControls />
+            </div>
           </div>
-        </div>
-      </Card>
-    </Grid>
-    )}
-  );
+        </Card>
+      </Grid>
+    )
+  });
 
   return (
-    cardAlignment ? 
+    cardAlignment ?
       <Grid container direction="row" justify={contentOpen ? "center" : "flex start"} spacing={1}>
         {trackCard}
       </Grid>

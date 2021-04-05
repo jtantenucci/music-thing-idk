@@ -1,6 +1,9 @@
 import { React, useState, useEffect, useRef } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import WebPlayerTitle from '../pieces/webPlayerTitle';
+import WebPlayerAlbumArt from '../pieces/webPlayerAlbumArt';
+import WebPlayerButtons from '../pieces/webPlayerButtons';
 import { AppBar, Avatar, Button, ClickAwayListener, Grid,
   Grow, MenuItem, MenuList, Paper, 
   Popper, Toolbar, Typography } from '@material-ui/core';
@@ -8,16 +11,13 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Link } from 'react-router-dom';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import SpotifyWebApi from 'spotify-web-api-js';
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+import NowPlaying from './nowPlaying';
 
 
-const drawerWidth = 200;
+const drawerWidth = 250;
 const useStyles = makeStyles((theme) => ({
   root: {
       display: 'flex',
@@ -118,10 +118,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const spotify = new SpotifyWebApi();
-
-
-export default function Header({ handleDrawerOpen, handleDrawerClose, drawerOpen, userName, userImage }) {
+export default function Header({ handleDrawerOpen, handleDrawerClose, drawerOpen, userName, userImage, checkIfPlaying, playingObject }) {
     const theme = useTheme();
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -232,15 +229,15 @@ export default function Header({ handleDrawerOpen, handleDrawerClose, drawerOpen
                     <IconButton onClick={handleDrawerClose}>
                       {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
+                    <Button onClick={checkIfPlaying}>
+                        check if music is playing
+                    </Button>
                   </div>
-                  <List className={classes.listItem}>
-                      {['brain', 'brain', 'brain', 'brain'].map((text, index) => (
-                        <ListItem button key={index}>
-                            
-                          <ListItemText primary={text} />
-                        </ListItem>
-                      ))}
-                    </List>
+                    <NowPlaying 
+                      webPlayerTitle={<WebPlayerTitle playingObject={playingObject}/>}
+                      webPlayerAlbumArt={<WebPlayerAlbumArt playingObject={playingObject}/>}
+                      webPlayerButtons={<WebPlayerButtons playingObject={playingObject}/>}
+                    />
                   </Drawer>
             </div>
         )

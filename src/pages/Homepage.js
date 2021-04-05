@@ -1,7 +1,6 @@
 import React from 'react';
 import MusicCard from '../components/musicCard';
-import NowPlaying from '../components/nowPlaying';
-import { makeStyles, Grid, Typography, Button  } from '@material-ui/core';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     pageHead: {
@@ -29,32 +28,25 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Home({ token, tracks, contentOpen, playingObject, checkIfPlaying}) {
+export default function Home({ token, tracks, contentOpen }) {
     const classes = useStyles();
-    
     return (
-            <>
-                <Grid container xs={12} spacing={3} justify={contentOpen ? "center" : "flex start"}>
-                    <Typography variant="h2" className={contentOpen ? classes.pageHeadOpen : classes.pageHead}>
+        <>
+            <Grid container xs={12} spacing={3} justify={contentOpen ? "center" : "flex start"}>
+                <Typography variant="h2" className={contentOpen ? classes.pageHeadOpen : classes.pageHead}>
                     songs you've enjoyed lately: 
+                </Typography>
+            </Grid>
+            <Grid container spacing={3}>
+                <Grid item>
+                    <MusicCard token={token} tracks={tracks} contentOpen={contentOpen} />
+                </Grid>
+                <Grid item>
+                    <Typography variant="h2" className={classes.pageHead}>
+                        songs for the weather: 
                     </Typography>
                 </Grid>
-                <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <MusicCard token={token} tracks={tracks} contentOpen={contentOpen}/>
-                    </Grid>
-                    <Grid item xs={12}>
-                    <Button onClick={checkIfPlaying}>
-                        check if music is playing
-                    </Button>
-                        <NowPlaying playingObject={playingObject} />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant="h2" className={classes.pageHead}>
-                        songs for the weather: 
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </>
+            </Grid>
+        </>
     );
 }

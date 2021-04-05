@@ -12,6 +12,7 @@ import Profile from './pages/Profile';
 import StickyFooter from './components/Footer';
 
 const spotify = new SpotifyWebApi(); //wrapper for the spotify api
+
 const useStyles = makeStyles((theme) => ({
   app: {
     minWidth: 450,
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginRight: 0,
     },
-    marginRight: 200,
+    marginRight: 250,
   },
 }));
 
@@ -85,6 +86,7 @@ export default function App() {
 
   }, []);
 
+  //Unhandled Rejection (TypeError): Cannot read property 'name' of null (when ad is playing but status is checked)
 const checkIfPlaying = () => {
   spotify.getMyCurrentPlaybackState().then(res => {
     setPlaying(res.is_playing);
@@ -130,15 +132,16 @@ console.log(nowPlaying);
             handleDrawerOpen={handleDrawerOpen} 
             handleDrawerClose={handleDrawerClose}
             drawerOpen={drawerOpen}
-            contentOpen={contentOpen}  
+            checkIfPlaying={checkIfPlaying}
+            contentOpen={contentOpen}
+            playingObject={nowPlaying.playing} 
           />
           <Switch>
             <Route exact path="/" component={() => 
-              <Homepage token={token} 
+              <Homepage 
+                token={token} 
                 contentOpen={contentOpen} 
                 tracks={tracks}
-                checkIfPlaying={checkIfPlaying}
-                playingObject={nowPlaying.playing}
               />} 
             />
             <Route exact path ="/profile" component={() => 

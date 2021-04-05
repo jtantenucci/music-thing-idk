@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles, Typography, Grid, Card, CardContent, CardMedia  } from '@material-ui/core';
+import { makeStyles, Typography, Grid, CardMedia } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     pageHead: {

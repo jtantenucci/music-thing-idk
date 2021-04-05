@@ -1,4 +1,4 @@
-import { createMuiTheme, breakpoints } from '@material-ui/core';
+import { createMuiTheme } from '@material-ui/core';
 import HelveticaWorld from '../font/HelveticaWorld-Regular.ttf';
 
 
