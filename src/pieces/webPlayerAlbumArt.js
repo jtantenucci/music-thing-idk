@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CardMedia from '@material-ui/core/CardMedia';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -11,17 +10,27 @@ const useStyles = makeStyles((theme) => ({
         width: 250,
         flexShrink: 0,
     },
+    blank: {
+        borderTop: '2px solid #9CE79C',
+        borderBottom: '2px solid #9CE79C',
+        height: 250,
+        width: 250,
+        flexShrink: 0,
+    },
 }));
 
-export default function WebPlayerAlbumArt({ playingObject }) {
-    const classes = useStyles();
+export default function WebPlayerAlbumArt({ playingObject, isPlaying }) {
+    const classes = useStyles(); 
     return (
+        isPlaying ? 
         <>
-            <CardMedia
-                image={playingObject.songAlbumArt}
+            <img
+                src={playingObject.songAlbumArt}
+                alt={playingObject.songAlbumArt}
                 className={classes.cover}
-                title="image to pull from spotify api"
             />
-        </>
-    );
+        </> 
+        :
+        <div className={classes.blank} /> 
+    ); 
 }

@@ -52,7 +52,7 @@ export default function MusicCardControls() {
             <IconButton aria-label="previous" className={classes.skipIcons}>
                 {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
             </IconButton>
-            <IconButton aria-label="play/pause">
+            <IconButton aria-label="play/pause" >
                 <PlayArrowIcon className={classes.playIcon} />
             </IconButton>
             <IconButton aria-label="next" className={classes.skipIcons}>

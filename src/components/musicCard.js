@@ -110,7 +110,7 @@ export default function MusicCard({ tracks, contentOpen }) {
             </CardContent>
             <Divider className={classes.div} />
             <div className={classes.controls}>
-              <MusicCardControls />
+              <MusicCardControls trackId={track.id}/>
             </div>
           </div>
           <MusicCardAlbumArt image={track.album.images[0].url} />

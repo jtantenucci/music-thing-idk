@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
 }))
   
 
-export default function Profile({ token, username, followers, profileLink, userImage }) {
+export default function Profile({ username, followers, profileLink, userImage }) {
     const classes = useStyles();
     var lowerName = username.toLowerCase();
     return (

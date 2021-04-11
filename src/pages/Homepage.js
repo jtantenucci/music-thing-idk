@@ -32,7 +32,7 @@ export default function Home({ token, tracks, contentOpen }) {
     const classes = useStyles();
     return (
         <>
-            <Grid container xs={12} spacing={3} justify={contentOpen ? "center" : "flex start"}>
+            <Grid container spacing={3} justify={contentOpen ? "center" : "flex start"}>
                 <Typography variant="h2" className={contentOpen ? classes.pageHeadOpen : classes.pageHead}>
                     songs you've enjoyed lately: 
                 </Typography>
