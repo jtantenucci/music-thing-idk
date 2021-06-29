@@ -42,6 +42,7 @@ export default function Dashboard({ token, spotify }) {
   const [tracks, setTracks] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [contentOpen, setContentOpen] = useState(true);
+  const [topArtists, setTopArtists] = useState([]);
 
 
 
@@ -50,11 +51,15 @@ export default function Dashboard({ token, spotify }) {
     spotify.getMe().then(user => {
       setUser(user);
       setUserName(user.display_name);
-      setUserImage(user.images[0].url);
+      setUserImage(user.images[0]);
     })
 
     spotify.getMyTopTracks().then(topTracks => {
       setTracks(topTracks.items)
+    })
+
+    spotify.getMyTopArtists().then(topArtists => {
+      setTopArtists(topArtists.items)
     })
 
   }, [spotify])
@@ -98,7 +103,10 @@ export default function Dashboard({ token, spotify }) {
                 username={user.display_name}
                 followers={user.followers.total}
                 profileLink={user.external_urls.spotify}
-                userImage={user.images[0].url}
+                userImage={user.images[0]}
+                topTracks={user.topTracks}
+                topArtists={topArtists}
+                contentOpen={contentOpen}
               />}
             />
           </Switch>

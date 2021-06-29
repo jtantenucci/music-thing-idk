@@ -29,7 +29,7 @@ export default function App() {
   }
   if (auth){
       return (
-        <Dashboard tokem={token} spotify={spotify}/>
+        <Dashboard token={token} spotify={spotify}/>
     )
   } 
   return <DefaultHeader />
