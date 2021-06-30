@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Profile from './pages/Profile';
 import StickyFooter from './components/Footer';
+import Playlists from './pages/Playlists';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +43,6 @@ export default function Dashboard({ token, spotify }) {
   const [tracks, setTracks] = useState([]);
   const [drawerOpen, setDrawerOpen] = useState(true);
   const [contentOpen, setContentOpen] = useState(true);
-  const [topArtists, setTopArtists] = useState([]);
-
 
 
   useEffect(() => {
@@ -56,10 +55,6 @@ export default function Dashboard({ token, spotify }) {
 
     spotify.getMyTopTracks().then(topTracks => {
       setTracks(topTracks.items)
-    })
-
-    spotify.getMyTopArtists().then(topArtists => {
-      setTopArtists(topArtists.items)
     })
 
   }, [spotify])
@@ -102,11 +97,16 @@ export default function Dashboard({ token, spotify }) {
                 token={token}
                 username={user.display_name}
                 followers={user.followers.total}
-                profileLink={user.external_urls.spotify}
                 userImage={user.images[0]}
-                topTracks={user.topTracks}
-                topArtists={topArtists}
                 contentOpen={contentOpen}
+                spotify={spotify}
+              />}
+            />
+            <Route exact path="/playlists" component={() =>
+              <Playlists
+                token={token}
+                username={user.display_name}
+                spotify={spotify}
               />}
             />
           </Switch>

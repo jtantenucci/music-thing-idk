@@ -94,13 +94,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MusicCard({ tracks, contentOpen }) {
+export default function ProfileTracksCard({ tracks, contentOpen }) {
   const classes = useStyles();
   const theme = useTheme();
   const cardAlignment = useMediaQuery(theme.breakpoints.up('sm'));
 
-  const newTracks = tracks.slice(0, tracks.length - 1);
-  const trackCard = newTracks.map(track => {
+  const trackCard = tracks.map(track => {
     return (
       <Grid item key={track.id}>
         <Card className={classes.root}>
@@ -109,9 +108,6 @@ export default function MusicCard({ tracks, contentOpen }) {
               <MusicCardTitle name={track.name} artist={track.artists[0].name} album={track.album.name} />
             </CardContent>
             <Divider className={classes.div} />
-            <div className={classes.controls}>
-              <MusicCardControls trackId={track.id}/>
-            </div>
           </div>
           <MusicCardAlbumArt image={track.album.images[0].url} />
         </Card>
@@ -119,7 +115,7 @@ export default function MusicCard({ tracks, contentOpen }) {
     )
   });
 
-  const mobileTrackCard = newTracks.map(track => {
+  const mobileTrackCard = tracks.map(track => {
     return (
       <Grid item key={track.id}>
         <Card className={classes.root}>
@@ -137,7 +133,7 @@ export default function MusicCard({ tracks, contentOpen }) {
 
   return (
     cardAlignment ?
-      <Grid container direction="row" justify={contentOpen ? "center" : "flex start"} spacing={1}>
+      <Grid container direction="row" justify={"center"} spacing={1}>
         {trackCard}
       </Grid>
       :

@@ -257,7 +257,7 @@ export default function Header({ handleDrawerOpen, handleDrawerClose, drawerOpen
                       autoFocusItem={open}
                     >
                       <MenuItem button onClick={handleClose}><Link to="/profile">my profile</Link></MenuItem>
-                      <MenuItem button onClick={handleClose}>saved playlists</MenuItem>
+                      <MenuItem button onClick={handleClose}><Link to="/playlists">my playlists</Link></MenuItem>
                       <MenuItem button onClick={handleClose}>logout</MenuItem>
                     </MenuList>
                   </ClickAwayListener>
